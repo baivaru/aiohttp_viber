@@ -87,8 +87,8 @@ This function checks whether the received text message is a valid command or oth
 [commands](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/commands.py) to validate the command and do the trailing process for each respective command.
 
 ## Credits/Mentions of the additional APIs and libraries used with the demonstration:
-[aiohttp](https://pypi.org/project/aiohttp/3.6.2/)
-[bs4](https://pypi.org/project/bs4/)
+- [aiohttp](https://pypi.org/project/aiohttp/3.6.2/)
+- [bs4](https://pypi.org/project/bs4/)
 
 ### Project Credits:
 [@eyaadh](https://t.me/eyaadh), [@PhoenixAtom](https://t.me/PhoenixAtom) and [@baivaru](https://t.me/BaivaruMedia)
