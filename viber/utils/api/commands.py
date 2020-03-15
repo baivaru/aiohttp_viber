@@ -68,9 +68,6 @@ class ViberCommands:
                                                             receiver=receiver,
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
-        elif command == "getinfo":
-            payload = {"auth_token": self.auth_token}
-            print(await ViberApiRequestSender().post('account_info', payload))
 
     async def prepare_payload(self, message, sender_name, sender_avatar, sender=None, receiver=None, chat_id=None):
         payload = message
