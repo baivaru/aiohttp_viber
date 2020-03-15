@@ -1,7 +1,7 @@
 import logging
 from aiohttp import web
-from viber.api.request_sender import ViberApiRequestSender
-from viber.api.hadlers import ViberHandlers
+from viber.utils.api.request_sender import ViberApiRequestSender
+from viber.utils.api.hadlers import ViberHandlers
 routes = web.RouteTableDef()
 
 

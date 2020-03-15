@@ -1,8 +1,8 @@
 import asyncio
 from aiohttp import web
-from viber.webserver import web_server
+from viber.utils.webserver import web_server
 from viber.utils.common import ViberCommon
-from viber.api.request_sender import ViberApiRequestSender
+from viber.utils.api.request_sender import ViberApiRequestSender
 
 
 async def main():

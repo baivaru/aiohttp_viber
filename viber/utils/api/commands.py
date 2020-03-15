@@ -1,6 +1,6 @@
-from viber.api.msg_types import ViberMessageTypes
-from viber.api.request_sender import ViberApiRequestSender
-from viber.helpers.scrapers import Scrapers
+from viber.utils.api.msg_types import ViberMessageTypes
+from viber.utils.api.request_sender import ViberApiRequestSender
+from viber.utils.helpers.scrapers import Scrapers
 from viber.utils.common import ViberCommon
 
 

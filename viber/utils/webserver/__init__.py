@@ -1,5 +1,5 @@
 from aiohttp import web
-from viber.webserver.routes import routes
+from viber.utils.webserver.routes import routes
 
 
 async def web_server():

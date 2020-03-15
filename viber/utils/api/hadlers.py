@@ -1,7 +1,7 @@
 from viber.utils.common import ViberCommon
-from viber.api.request_sender import ViberApiRequestSender
-from viber.api.msg_types import ViberMessageTypes
-from viber.api.commands import ViberCommands
+from viber.utils.api.request_sender import ViberApiRequestSender
+from viber.utils.api.msg_types import ViberMessageTypes
+from viber.utils.api.commands import ViberCommands
 
 msg_trail = []
 
