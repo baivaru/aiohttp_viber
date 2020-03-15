@@ -26,10 +26,11 @@ class ViberMessageTypes:
         for data in data_list[:6]:
             name = data['name']
             link = data['link']
+            status = data['status']
             summary = data['summary']
             first_rows = {
                 "Columns": 6,
-                "Rows": 5,
+                "Rows": 4,
                 "ActionType": "open-url",
                 "ActionBody": link,
                 "Image": "https://upload.wikimedia.org/wikipedia/en/f/f2/Maldives_Majlis_Logo.jpeg"
@@ -38,7 +39,7 @@ class ViberMessageTypes:
             second_row = {
                 "Columns": 6,
                 "Rows": 1,
-                "Text": f"<font color=#323232><b>{name}</b></font>",
+                "Text": f"<font color=#323232><b>{name[:250]}</b></font>",
                 "ActionType": "none",
                 "TextSize": "medium",
                 "TextVAlign": "middle",
@@ -48,14 +49,24 @@ class ViberMessageTypes:
             third_row = {
                 "Columns": 6,
                 "Rows": 1,
-                "Text": f"<font color=#777777 size=12>{summary}</font>",
-                "ActionType": "reply",
-                "ActionBody": summary,
+                "Text": f"<font color=#777777 size=12>{status[:250]}</font>",
+                "ActionType": "none",
                 "TextSize": "medium",
                 "TextVAlign": "middle",
                 "TextHAlign": "right"
             }
             buttons.append(third_row)
+            fourth_row = {
+                "Columns": 6,
+                "Rows": 1,
+                "Text": f"<font color=#777777 size=12>{summary[:250]}</font>",
+                "ActionType": "reply",
+                "ActionBody": summary[:250],
+                "TextSize": "medium",
+                "TextVAlign": "middle",
+                "TextHAlign": "right"
+            }
+            buttons.append(fourth_row)
         msg_obj = {
             "receiver": receiver,
             "type": "rich_media",
