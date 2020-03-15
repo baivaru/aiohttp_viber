@@ -19,3 +19,54 @@ class ViberMessageTypes:
             "text": text
         }
         return msg_obj
+
+    async def rich_media(self, receiver, data_list):
+        # formulating buttons
+        buttons = []
+        for data in data_list[:6]:
+            name = data['name']
+            link = data['link']
+            summary = data['summary']
+            first_rows = {
+                "Columns": 6,
+                "Rows": 5,
+                "ActionType": "open-url",
+                "ActionBody": link,
+                "Image": "https://upload.wikimedia.org/wikipedia/en/f/f2/Maldives_Majlis_Logo.jpeg"
+            }
+            buttons.append(first_rows)
+            second_row = {
+                "Columns": 6,
+                "Rows": 1,
+                "Text": f"<font color=#323232><b>{name}</b></font>",
+                "ActionType": "none",
+                "TextSize": "medium",
+                "TextVAlign": "middle",
+                "TextHAlign": "right"
+            }
+            buttons.append(second_row)
+            third_row = {
+                "Columns": 6,
+                "Rows": 1,
+                "Text": f"<font color=#777777 size=12>{summary}</font>",
+                "ActionType": "reply",
+                "ActionBody": summary,
+                "TextSize": "medium",
+                "TextVAlign": "middle",
+                "TextHAlign": "right"
+            }
+            buttons.append(third_row)
+        msg_obj = {
+            "receiver": receiver,
+            "type": "rich_media",
+            "min_api_version": 2,
+            "rich_media": {
+                "Type": "rich_media",
+                "ButtonsGroupColumns": 6,
+                "ButtonsGroupRows": 7,
+                "BgColor": "#FFFFFF",
+                "Buttons": buttons
+            }
+        }
+
+        return msg_obj
