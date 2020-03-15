@@ -9,3 +9,7 @@ aioHTTP Viber bot is a fully async viber bot written on basis of [Viber REST API
 5. Run with `python3.8 -m viber`, stop with <kbd>CTRL</kbd>+<kbd>C</kbd>.
 > It is recommended to use [virtual environments](https://docs.python-guide.org/dev/virtualenvs/) while running the app, this is a good practice you can use at any of your python projects as virtualenv creates an isolated Python environment which is specific to your project.
 
+## Viber API & Messaging Flow:
+![.](https://developers.viber.com/docs/img/send_and_receive_message_flow.png)
+> More details on available Endpoints and API can be found [here](https://developers.viber.com/docs/api/rest-bot-api/).
+
