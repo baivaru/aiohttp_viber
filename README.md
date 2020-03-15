@@ -2,7 +2,7 @@
 aioHTTP Viber bot is a fully async viber bot written on basis of [Viber REST API](https://developers.viber.com/docs/api/rest-bot-api/).
 The purpose of this project is to demonstrate how we at [@baivaru](https://t.me/Baivaru) structures our Viber projects.
 
-You can scan the bellow QR Code to test the sample running bot:\
+You can scan the bellow QR Code to test the demo running bot:\
 ![.](https://chart.googleapis.com/chart?cht=qr&chl=viber%3A%2F%2Fpa%3FchatURI%3Demain&chs=180x180&choe=UTF-8&chld=L|2)
 
 ## Cloning & Run:
