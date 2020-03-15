@@ -76,7 +76,7 @@ While sending text message the posted json data is as follows:
    "text":"Hello world!"
 }
 ```
-Module [msg_types](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/msg_types.py) contains these JSON data structures for different [message types](https://developers.viber.com/docs/api/rest-bot-api/#message-types) viber offers and the function 
+Module [msg_types](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/msg_types.py) contains these data structures in the form of dictionaries for different [message types](https://developers.viber.com/docs/api/rest-bot-api/#message-types) viber offers and the function 
 [prepare_payload](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/commands.py#L72) from the module [commands](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/commands.py) formulates/clean and prepare the required payload for posting.\
 When once the payload is ready it calls the function [post](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/request_sender.py#L22) from the module [request_sender](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/request_sender.py).
 
