@@ -17,6 +17,7 @@ async def main():
 
     scheduler = AsyncIOScheduler()
     scheduler.add_job(Scrapers().scrape_majilis, 'interval', hours=1)
+    scheduler.add_job(Scrapers().scrape_gazatte, 'interval', hours=1)
     scheduler.start()
 
 

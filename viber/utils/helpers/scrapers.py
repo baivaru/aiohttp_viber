@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 from viber.utils.database.majilis_collection import MajilisCollection
+from viber.utils.database.gazette_collections import GazetteCollection
 
 
 class Scrapers:
@@ -40,8 +41,30 @@ class Scrapers:
                     elif x == 7:
                         collection = 'others_collection'
 
-                    await MajilisCollection().majilis_updates_from_scheduler(collection=collection,
-                                                                             name=d.text,
-                                                                             link=d.get('href'),
-                                                                             status=f"މިހާރު އޮތް ހިސާބް: {status.text.strip()}",
-                                                                             summary=summary.text.strip())
+                    await MajilisCollection().majilis_updates_from_scheduler(
+                        collection=collection,
+                        name=d.text,
+                        link=d.get('href'),
+                        status=f"މިހާރު އޮތް ހިސާބް: {status.text.strip()}",
+                        summary=summary.text.strip()
+                    )
+
+    async def scrape_gazatte(self):
+        req = self.req('http://gazette.gov.mv/gazette', headers={'User-Agent': 'Mozilla/5.0'})
+        page = self.url_op(req)
+        soup = self.bs(page, 'html.parser')
+
+        gaz_data = soup.findAll('div', class_='col-md-12 bordered items')
+        for gaz in gaz_data:
+            volume = gaz.find('div', class_='col-md-10 no-padding volume-info').text.split('.', 1)[0].strip()
+            a = gaz.find('a', class_='gazette-title')
+            title = a.text.strip()
+            link = a.get('href')
+            date = gaz.find('div', class_='col-md-2 no-padding left info').text.split(': ', 1)[1]
+
+            await GazetteCollection().gazette_updates_from_scheduler(
+                title=title,
+                volume=volume,
+                link=link,
+                date=date
+            )
