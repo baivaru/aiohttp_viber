@@ -20,6 +20,8 @@ async def main():
     scheduler.add_job(Scrapers().scrape_gazatte, 'interval', hours=1)
     scheduler.start()
 
+    # await Scrapers().scrape_majilis()
+    # await Scrapers().scrape_gazatte()
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

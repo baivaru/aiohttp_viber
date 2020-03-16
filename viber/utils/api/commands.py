@@ -2,6 +2,7 @@ from viber.utils.common import ViberCommon
 from viber.utils.api.msg_types import ViberMessageTypes
 from viber.utils.api.request_sender import ViberApiRequestSender
 from viber.utils.database.majilis_collection import MajilisCollection
+from viber.utils.database.gazette_collections import GazetteCollection
 
 
 class ViberCommands:
@@ -61,6 +62,26 @@ class ViberCommands:
         elif command == "others":
             others = await MajilisCollection().majilis_return_collection('others_collection')
             message = await ViberMessageTypes().rich_media(receiver, others)
+            payload = await ViberCommands().prepare_payload(message=message,
+                                                            sender_name=self.sender_name,
+                                                            sender_avatar=self.sender_avatar,
+                                                            sender=None,
+                                                            receiver=receiver,
+                                                            chat_id=None)
+            await ViberApiRequestSender().post('send_message', payload)
+        elif command == "gazette":
+            gazette = await GazetteCollection().gazette_return_collection()
+            last_gazette = gazette[-1]
+            message = await ViberMessageTypes().text_message(receiver, f"{last_gazette['title']}, "
+                                                                       f"{last_gazette['volume']}")
+            payload = await ViberCommands().prepare_payload(message=message,
+                                                            sender_name=self.sender_name,
+                                                            sender_avatar=self.sender_avatar,
+                                                            sender=None,
+                                                            receiver=receiver,
+                                                            chat_id=None)
+            await ViberApiRequestSender().post('send_message', payload)
+            message = await ViberMessageTypes().file_media(receiver, last_gazette['link'])
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
                                                             sender_avatar=self.sender_avatar,
