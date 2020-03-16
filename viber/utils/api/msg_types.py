@@ -106,16 +106,15 @@ class ViberMessageTypes:
         return msg_obj
 
     async def file_media(self, receiver, url):
-        async with aiohttp.ClientSession() as catSession:
-            async with catSession.get(url) as resp:
+        """
+        We download the file here since the headers doesnt come with content length. file size is a
+        mandatory field while sending files
+        """
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
                 headers = resp.headers
                 filename = headers['Content-Disposition'].split('; ')[1].replace('filename=', '').replace('"', '')
                 tmp_file = os.path.join('viber/working_dir/', filename)
-
-                '''
-                We download the file here since the headers doesnt come with content length. file size is a 
-                mandatory field while sending files
-                '''
 
                 downloaded_size = 0
                 async with aiofiles.open(tmp_file, mode='wb') as f:
