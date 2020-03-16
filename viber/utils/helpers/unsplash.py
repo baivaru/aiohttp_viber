@@ -15,7 +15,7 @@ class UnsplashPhotos:
                     'title': data['alt_description'],
                     'username': data['user']['username'],
                     'link': data['urls']['full'],
-                    'thumb': data['urls']['thumb']
+                    'thumb': data['urls']['regular']
                 }
 
                 return photo_data
