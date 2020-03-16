@@ -11,4 +11,7 @@ class ViberDB:
         self.emergency_debates_collection = self.db.table("emergency")
         self.others_collection = self.db.table("others")
         self.gazette_collection = self.db.table("gazette")
+        self.songs_collection = self.db.table("songs")
         self.query = Query()
+
+

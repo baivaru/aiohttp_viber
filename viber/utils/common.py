@@ -10,6 +10,7 @@ class Common:
         self.viber_web_hook_url = self.app_config.get("viber", "webhook_uri")
         self.viber_name = self.app_config.get("viber", "name")
         self.viber_avatar = self.app_config.get("viber", "avatar")
+        self.unsplash_key = self.app_config.get("unsplash", "client_secret")
 
 
 ViberCommon = Common()

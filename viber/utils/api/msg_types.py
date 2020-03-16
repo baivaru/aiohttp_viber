@@ -105,7 +105,7 @@ class ViberMessageTypes:
 
         return msg_obj
 
-    async def file_media(self, receiver, url):
+    async def file_message(self, receiver, url):
         """
         We download the file here since the headers doesnt come with content length. file size is a
         mandatory field while sending files
@@ -143,3 +143,20 @@ class ViberMessageTypes:
                 }
 
                 return msg_obj
+
+    async def picture_message(self, receiver, text, media, thumb):
+        msg_obj = {
+            "receiver": receiver,
+            "min_api_version": 1,
+            "sender": {
+                "name": self.sender_name,
+                "avatar": self.sender_avatar
+            },
+            "tracking_data": "tracking data",
+            "type": "picture",
+            "text": text,
+            "media": media,
+            "thumbnail": thumb
+        }
+
+        return msg_obj

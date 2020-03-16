@@ -3,6 +3,7 @@ from viber.utils.api.msg_types import ViberMessageTypes
 from viber.utils.api.request_sender import ViberApiRequestSender
 from viber.utils.database.majilis_collection import MajilisCollection
 from viber.utils.database.gazette_collections import GazetteCollection
+from viber.utils.helpers.unsplash import UnsplashPhotos
 
 
 class ViberCommands:
@@ -81,7 +82,22 @@ class ViberCommands:
                                                             receiver=receiver,
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
-            message = await ViberMessageTypes().file_media(receiver, last_gazette['link'])
+            message = await ViberMessageTypes().file_message(receiver, last_gazette['link'])
+            payload = await ViberCommands().prepare_payload(message=message,
+                                                            sender_name=self.sender_name,
+                                                            sender_avatar=self.sender_avatar,
+                                                            sender=None,
+                                                            receiver=receiver,
+                                                            chat_id=None)
+            await ViberApiRequestSender().post('send_message', payload)
+        elif command == "photo":
+            photo = await UnsplashPhotos().random_photo()
+            message = await ViberMessageTypes().picture_message(
+                receiver,
+                f"{photo['title']} by {photo['username']} on Unsplash",
+                photo['link'],
+                photo['thumb']
+            )
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
                                                             sender_avatar=self.sender_avatar,

@@ -102,9 +102,12 @@ This function checks whether the received text message is a valid command or oth
 
 ## Credits/Mentions of the additional APIs and libraries used with the demonstration:
 - [aiohttp](https://pypi.org/project/aiohttp/3.6.2/)
+- [aiofiles](https://pypi.org/project/aiofiles/)
+- [configparser](https://pypi.org/project/configparser/)
 - [bs4](https://pypi.org/project/bs4/)
 - [tinydb](https://pypi.org/project/tinydb/)
 - [apscheduler](https://pypi.org/project/APScheduler/)
+- [unsplash.com](https://unsplash.com/documentation)
 
 ### Project Credits:
 [@eyaadh](https://t.me/eyaadh), [@PhoenixAtom](https://t.me/PhoenixAtom) and [@baivaru](https://t.me/BaivaruMedia)
