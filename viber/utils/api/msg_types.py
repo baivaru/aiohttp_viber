@@ -4,7 +4,27 @@ from viber.utils.common import ViberCommon
 class ViberMessageTypes:
     def __init__(self):
         self.sender_name = ViberCommon.viber_name,
-        self.sender_avatar = ViberCommon.viber_avatar
+        self.sender_avatar = ViberCommon.viber_avatar,
+        self.auth_token = ViberCommon.viber_auth_token
+        self.web_hook_url = ViberCommon.viber_web_hook_url
+
+    async def web_hook(self):
+        web_hook_object = {
+            'auth_token': self.auth_token,
+            "url": self.web_hook_url,
+            "event_types": [
+                "delivered",
+                "seen",
+                "failed",
+                "subscribed",
+                "unsubscribed",
+                "conversation_started"
+            ],
+            "send_name": True,
+            "send_photo": True
+        }
+
+        return web_hook_object
 
     async def text_message(self, receiver, text):
         msg_obj = {

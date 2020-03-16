@@ -1,7 +1,7 @@
+from viber.utils.common import ViberCommon
 from viber.utils.api.msg_types import ViberMessageTypes
 from viber.utils.api.request_sender import ViberApiRequestSender
-from viber.utils.helpers.scrapers import Scrapers
-from viber.utils.common import ViberCommon
+from viber.utils.database.majilis_collection import MajilisCollection
 
 
 class ViberCommands:
@@ -19,7 +19,7 @@ class ViberCommands:
     async def commands_checker(self, command, receiver):
         command = command[1:]
         if command == "bills":
-            bills = await Scrapers().collect_bills()
+            bills = await MajilisCollection().majilis_return_collection('bills_collection')
             message = await ViberMessageTypes().rich_media(receiver, bills)
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
@@ -29,7 +29,7 @@ class ViberCommands:
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
         elif command == "resolutions":
-            resolutions = await Scrapers().collect_resolutions()
+            resolutions = await MajilisCollection().majilis_return_collection('resolutions_collection')
             message = await ViberMessageTypes().rich_media(receiver, resolutions)
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
@@ -39,7 +39,7 @@ class ViberCommands:
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
         elif command == "emergency_debates":
-            emergency_debates = await Scrapers().collect_emergency_debates()
+            emergency_debates = await MajilisCollection().majilis_return_collection('emergency_debates_collection')
             message = await ViberMessageTypes().rich_media(receiver, emergency_debates)
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
@@ -49,7 +49,7 @@ class ViberCommands:
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
         elif command == "approvals":
-            approvals = await Scrapers().collect_approvals()
+            approvals = await MajilisCollection().majilis_return_collection('approvals_collection')
             message = await ViberMessageTypes().rich_media(receiver, approvals)
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
@@ -59,7 +59,7 @@ class ViberCommands:
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
         elif command == "others":
-            others = await Scrapers().collect_others()
+            others = await MajilisCollection().majilis_return_collection('others_collection')
             message = await ViberMessageTypes().rich_media(receiver, others)
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,

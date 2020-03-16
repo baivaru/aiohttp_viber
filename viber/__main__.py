@@ -1,8 +1,10 @@
 import asyncio
 from aiohttp import web
 from viber.utils.webserver import web_server
-from viber.utils.common import ViberCommon
+from viber.utils.api.msg_types import ViberMessageTypes
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from viber.utils.api.request_sender import ViberApiRequestSender
+from viber.utils.helpers.scrapers import Scrapers
 
 
 async def main():
@@ -11,22 +13,11 @@ async def main():
     await web.TCPSite(runner, '0.0.0.0', 8080).start()
 
     await asyncio.sleep(2)
-    web_hook_payload = {
-        'auth_token': ViberCommon.viber_auth_token,
-        "url": ViberCommon.viber_web_hook_url,
-        "event_types": [
-            "delivered",
-            "seen",
-            "failed",
-            "subscribed",
-            "unsubscribed",
-            "conversation_started"
-        ],
-        "send_name": True,
-        "send_photo": True
-    }
+    await ViberApiRequestSender().post('web_hook', await ViberMessageTypes().web_hook())
 
-    await ViberApiRequestSender().post('web_hook', web_hook_payload)
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(Scrapers().scrape_majilis, 'interval', hours=1)
+    scheduler.start()
 
 
 if __name__ == "__main__":
