@@ -52,8 +52,8 @@ This directory basically consists of the config.ini file/s. Also if there are te
 within this directory at the course of their existence.
 
 #### database:
-This directory contains the modules that concerns the DB/RDBMS the application uses. For the purpose of this demonstration I am using TinyDB which is a lightweight 
-just like MongoDB however you are free to use whichever you prefer. As we use scrapers for the demonstration it is advisable to scrape them data in a schedule basis 
+This directory contains the modules that concerns the DB/RDBMS the application uses. For the purpose of this demonstration I am using TinyDB which is a lightweight document oriented database  
+just like MongoDB (which would be my goto DBMS for bigger projects) however you are free to use whichever you prefer. As we use scrapers for the demonstration it is advisable to scrape them data in a schedule basis 
 rather than calling the respective scraper whenever a command is received.
 >Viber recommends that you record the subscriber ID of each subscriber, as there’s no API for fetching all subscriber IDs for your bot. You can find the subscriber ID in the sender.id property of the “message” callback, or the user.id property of the “subscribed” callback.
 
