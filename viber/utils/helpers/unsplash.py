@@ -14,7 +14,7 @@ class UnsplashPhotos:
                 photo_data = {
                     'title': data['alt_description'],
                     'username': data['user']['username'],
-                    'link': data['urls']['full'],
+                    'link': data['links']['download'],
                     'thumb': data['urls']['regular']
                 }
 
