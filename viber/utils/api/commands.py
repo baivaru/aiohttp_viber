@@ -17,12 +17,8 @@ class ViberCommands:
     async def text_validator(self, data):
         message = data['message']['text']
         receiver = data["sender"]["id"]
-        if 'tracking_data' in data['message']:
-            tracking_data = data['message']['tracking_data']
-            await ViberCommands().tracking_data_attendant(tracking_data, message, receiver)
-        else:
-            if str(message).startswith('!'):
-                await ViberCommands().commands_checker(message, receiver)
+        if str(message).startswith('!'):
+            await ViberCommands().commands_checker(message, receiver)
 
     async def commands_checker(self, command, receiver):
         command = command[1:]
@@ -127,20 +123,6 @@ class ViberCommands:
                                                             receiver=receiver,
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
-
-    async def tracking_data_attendant(self, tracking_data, message, receiver):
-        if tracking_data == 'gazette':
-            gazette = await GazetteCollection().gazette_return_collection()
-            if str(message).isnumeric():
-                tracked_gazette = gazette[int(message)]
-                message = await ViberMessageTypes().file_message(receiver, tracked_gazette['link'], None, None)
-                payload = await ViberCommands().prepare_payload(message=message,
-                                                                sender_name=self.sender_name,
-                                                                sender_avatar=self.sender_avatar,
-                                                                sender=None,
-                                                                receiver=receiver,
-                                                                chat_id=None)
-                await ViberApiRequestSender().post('send_message', payload)
 
     async def prepare_payload(self, message, sender_name, sender_avatar, sender=None, receiver=None, chat_id=None):
         payload = message

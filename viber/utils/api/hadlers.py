@@ -2,6 +2,7 @@ from viber.utils.common import ViberCommon
 from viber.utils.api.request_sender import ViberApiRequestSender
 from viber.utils.api.msg_types import ViberMessageTypes
 from viber.utils.api.commands import ViberCommands
+from viber.utils.api.tracking_data import ViberTrackingDataAttendant
 
 
 class ViberHandlers:
@@ -36,5 +37,9 @@ class ViberHandlers:
 
     async def on_message(self, data):
         message_type = data['message']['type']
-        if message_type == 'text':
-            await ViberCommands().text_validator(data)
+        if 'tracking_data' in data['message']:
+            tracking_data = data['message']['tracking_data']
+            await ViberTrackingDataAttendant().attend(tracking_data, data)
+        else:
+            if message_type == 'text':
+                await ViberCommands().text_validator(data)
