@@ -11,6 +11,7 @@ class Common:
         self.viber_name = self.app_config.get("viber", "name")
         self.viber_avatar = self.app_config.get("viber", "avatar")
         self.unsplash_key = self.app_config.get("unsplash", "client_secret")
+        self.pixbay_key = self.app_config.get("pixbay", "key")
 
 
 ViberCommon = Common()

@@ -4,6 +4,7 @@ from viber.utils.api.request_sender import ViberApiRequestSender
 from viber.utils.database.majilis_collection import MajilisCollection
 from viber.utils.database.gazette_collections import GazetteCollection
 from viber.utils.helpers.unsplash import UnsplashPhotos
+from viber.utils.helpers.pixabay import PixbayVideos
 
 
 class ViberCommands:
@@ -97,6 +98,22 @@ class ViberCommands:
                 f"{photo['title']} by {photo['username']} on Unsplash",
                 photo['link'],
                 photo['thumb']
+            )
+            payload = await ViberCommands().prepare_payload(message=message,
+                                                            sender_name=self.sender_name,
+                                                            sender_avatar=self.sender_avatar,
+                                                            sender=None,
+                                                            receiver=receiver,
+                                                            chat_id=None)
+            await ViberApiRequestSender().post('send_message', payload)
+        elif command == 'video':
+            video = await PixbayVideos().get_random_video()
+            message = await ViberMessageTypes().video_message(
+                receiver,
+                video['url'],
+                video['size'],
+                video['thumb'],
+                video['duration']
             )
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,

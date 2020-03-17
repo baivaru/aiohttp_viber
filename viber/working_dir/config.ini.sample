@@ -4,4 +4,8 @@ webhook_uri =
 name =
 avatar = https://i.pinimg.com/originals/4f/93/2b/4f932b60c7e1d2962c54bf98eead5513.jpg
 [unsplash]
+# https://unsplash.com/developers
 client_secret =
+[pixbay]
+# https://pixabay.com/api/docs/
+key =

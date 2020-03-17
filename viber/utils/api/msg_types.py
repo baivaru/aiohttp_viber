@@ -160,3 +160,21 @@ class ViberMessageTypes:
         }
 
         return msg_obj
+
+    async def video_message(self, receiver, media, size, thumbnail, duration):
+        msg_obj = {
+            "receiver": receiver,
+            "min_api_version": 1,
+            "sender": {
+                "name": self.sender_name,
+                "avatar": self.sender_avatar
+            },
+            "tracking_data": "tracking data",
+            "type": "video",
+            "media": media,
+            "thumbnail": thumbnail,
+            "size": size,
+            "duration": duration
+        }
+
+        return msg_obj
