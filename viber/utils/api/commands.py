@@ -5,6 +5,7 @@ from viber.utils.database.majilis_collection import MajilisCollection
 from viber.utils.database.gazette_collections import GazetteCollection
 from viber.utils.helpers.unsplash import UnsplashPhotos
 from viber.utils.helpers.pixabay import PixbayVideos
+from viber.utils.api.keyboards import ViberKeyboards
 
 
 class ViberCommands:
@@ -16,8 +17,12 @@ class ViberCommands:
     async def text_validator(self, data):
         message = data['message']['text']
         receiver = data["sender"]["id"]
-        if str(message).startswith('!'):
-            await ViberCommands().commands_checker(message, receiver)
+        if 'tracking_data' in data['message']:
+            tracking_data = data['message']['tracking_data']
+            await ViberCommands().tracking_data_attendant(tracking_data, message, receiver)
+        else:
+            if str(message).startswith('!'):
+                await ViberCommands().commands_checker(message, receiver)
 
     async def commands_checker(self, command, receiver):
         command = command[1:]
@@ -73,17 +78,13 @@ class ViberCommands:
             await ViberApiRequestSender().post('send_message', payload)
         elif command == "gazette":
             gazette = await GazetteCollection().gazette_return_collection()
-            last_gazette = gazette[-1]
-            message = await ViberMessageTypes().text_message(receiver, f"{last_gazette['title']}, "
-                                                                       f"{last_gazette['volume']}")
-            payload = await ViberCommands().prepare_payload(message=message,
-                                                            sender_name=self.sender_name,
-                                                            sender_avatar=self.sender_avatar,
-                                                            sender=None,
-                                                            receiver=receiver,
-                                                            chat_id=None)
-            await ViberApiRequestSender().post('send_message', payload)
-            message = await ViberMessageTypes().file_message(receiver, last_gazette['link'])
+            keyboard = await ViberKeyboards().gazette_keyboard(gazette)
+            message = await ViberMessageTypes().text_message(
+                receiver,
+                'Here are the Latest 10 Articles from Gazettes',
+                'gazette',
+                keyboard
+            )
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
                                                             sender_avatar=self.sender_avatar,
@@ -97,7 +98,9 @@ class ViberCommands:
                 receiver,
                 f"{photo['title']} by {photo['username']} on Unsplash",
                 photo['link'],
-                photo['thumb']
+                photo['thumb'],
+                None,
+                None
             )
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
@@ -113,7 +116,9 @@ class ViberCommands:
                 video['url'],
                 video['size'],
                 video['thumb'],
-                video['duration']
+                video['duration'],
+                None,
+                None
             )
             payload = await ViberCommands().prepare_payload(message=message,
                                                             sender_name=self.sender_name,
@@ -122,6 +127,20 @@ class ViberCommands:
                                                             receiver=receiver,
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
+
+    async def tracking_data_attendant(self, tracking_data, message, receiver):
+        if tracking_data == 'gazette':
+            gazette = await GazetteCollection().gazette_return_collection()
+            if str(message).isnumeric():
+                tracked_gazette = gazette[int(message)]
+                message = await ViberMessageTypes().file_message(receiver, tracked_gazette['link'], None, None)
+                payload = await ViberCommands().prepare_payload(message=message,
+                                                                sender_name=self.sender_name,
+                                                                sender_avatar=self.sender_avatar,
+                                                                sender=None,
+                                                                receiver=receiver,
+                                                                chat_id=None)
+                await ViberApiRequestSender().post('send_message', payload)
 
     async def prepare_payload(self, message, sender_name, sender_avatar, sender=None, receiver=None, chat_id=None):
         payload = message

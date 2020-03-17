@@ -3,7 +3,6 @@ from viber.utils.api.request_sender import ViberApiRequestSender
 from viber.utils.api.msg_types import ViberMessageTypes
 from viber.utils.api.commands import ViberCommands
 
-msg_trail = []
 
 class ViberHandlers:
     def __init__(self):
@@ -21,15 +20,12 @@ class ViberHandlers:
         elif event == 'conversation_started':
             pass
         elif event == 'message':
-            message_token = data['message_token']
-            if not (message_token in msg_trail):
-                msg_trail.append(message_token)
-                await ViberHandlers().on_message(data)
+            await ViberHandlers().on_message(data)
 
     async def on_subscription(self, data):
         receiver = data["user"]["id"]
         receiver_name = data["user"]["name"]
-        message = await ViberMessageTypes().text_message(receiver, f"Hello {receiver_name}!!")
+        message = await ViberMessageTypes().text_message(receiver, f"Hello {receiver_name}!!", None, None)
         payload = await ViberCommands().prepare_payload(message=message,
                                                         sender_name=self.sender_name,
                                                         sender_avatar=self.sender_avatar,
