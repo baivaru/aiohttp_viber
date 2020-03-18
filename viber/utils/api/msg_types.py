@@ -191,18 +191,57 @@ class ViberMessageTypes:
 
         return msg_obj
 
-    async def location_message(self):
+    async def location_message(self, receiver, lat, lon, tracking_data, keyboard):
         msg_obj = {
-            "receiver": "01234567890A=",
+            "receiver": receiver,
             "min_api_version": 1,
             "sender": {
-                "name": "John McClane",
-                "avatar": "http://avatar.example.com"
+                "name": self.sender_name,
+                "avatar": self.sender_avatar
             },
-            "tracking_data": "tracking data",
+            "tracking_data": tracking_data,
             "type": "location",
             "location": {
-                "lat": "37.7898",
-                "lon": "-122.3942"
+                "lat": lat,
+                "lon": lon
+            }
+        }
+
+        if keyboard is not None:
+            msg_obj['keyboard'] = keyboard
+
+        return msg_obj
+
+    async def sticker_message(self, receiver, sticker_id, tracking_data, keyboard):
+        msg_obj = {
+            "receiver": receiver,
+            "min_api_version": 1,
+            "sender": {
+                "name": self.sender_name,
+                "avatar": self.sender_avatar
+            },
+            "tracking_data": tracking_data,
+            "type": "sticker",
+            "sticker_id": sticker_id
+        }
+
+        if keyboard is not None:
+            msg_obj['keyboard'] = keyboard
+
+        return msg_obj
+
+    async def contact_message(self, receiver, name, contact, tracking_data, keyboard):
+        msg_obj = {
+            "receiver": receiver,
+            "min_api_version": 1,
+            "sender": {
+                "name": self.sender_name,
+                "avatar": self.sender_avatar
+            },
+            "tracking_data": tracking_data,
+            "type": "contact",
+            "contact": {
+                "name": name,
+                "phone_number": contact
             }
         }

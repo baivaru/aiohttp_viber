@@ -123,6 +123,19 @@ class ViberCommands:
                                                             receiver=receiver,
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
+        elif command == 'nearme':
+            message = await ViberMessageTypes().text_message(receiver=receiver,
+                                                             text="Ok send me your Location, I can check FourSquare"
+                                                                  " for locations near by.",
+                                                             tracking_data="foursquare",
+                                                             keyboard=None)
+            payload = await ViberCommands().prepare_payload(message=message,
+                                                            sender_name=self.sender_name,
+                                                            sender_avatar=self.sender_avatar,
+                                                            sender=None,
+                                                            receiver=receiver,
+                                                            chat_id=None)
+            await ViberApiRequestSender().post('send_message', payload)
 
     async def prepare_payload(self, message, sender_name, sender_avatar, sender=None, receiver=None, chat_id=None):
         payload = message
