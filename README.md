@@ -112,6 +112,7 @@ This function checks whether the received text message is a valid command or oth
 - [apscheduler](https://pypi.org/project/APScheduler/)
 - [unsplash.com](https://unsplash.com/documentation)
 - [pixabay.com](https://pixabay.com/api/docs/)
+- [FourSquare](https://developer.foursquare.com/docs)
 
 ### Project Credits:
 [@eyaadh](https://t.me/eyaadh), [@PhoenixAtom](https://t.me/PhoenixAtom) and [@baivaru](https://t.me/BaivaruMedia)

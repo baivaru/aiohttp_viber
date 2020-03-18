@@ -9,3 +9,7 @@ client_secret =
 [pixbay]
 # https://pixabay.com/api/docs/
 key =
+[foursqure]
+# https://developer.foursquare.com/docs
+client_id =
+client_secret =
