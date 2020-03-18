@@ -26,8 +26,10 @@ async def main():
     Initiate the DB for the first run
     """
     if not (await MajilisCollection().majilis_return_collection('bills_collection')):
+        print('im here for god sake')
         await Scrapers().scrape_majilis()
     if not (await GazetteCollection().gazette_return_collection()):
+        print('and im here for god sake')
         await Scrapers().scrape_gazatte()
 
 

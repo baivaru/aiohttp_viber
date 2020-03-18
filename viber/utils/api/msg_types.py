@@ -29,7 +29,7 @@ class ViberMessageTypes:
 
         return web_hook_object
 
-    async def text_message(self, receiver, text):
+    async def text_message(self, receiver, text, tracking_data, keyboard):
         msg_obj = {
             "receiver": receiver,
             "min_api_version": 1,
@@ -37,10 +37,13 @@ class ViberMessageTypes:
                 "name": self.sender_name,
                 "avatar": self.sender_avatar
             },
-            "tracking_data": "tracking data",
+            "tracking_data": tracking_data,
             "type": "text",
             "text": text
         }
+        if keyboard is not None:
+            msg_obj['keyboard'] = keyboard
+
         return msg_obj
 
     async def rich_media(self, receiver, data_list):
@@ -105,7 +108,7 @@ class ViberMessageTypes:
 
         return msg_obj
 
-    async def file_message(self, receiver, url):
+    async def file_message(self, receiver, url, tracking_data, keyboard):
         """
         We download the file here since the headers doesnt come with content length. file size is a
         mandatory field while sending files
@@ -135,16 +138,19 @@ class ViberMessageTypes:
                         "name": self.sender_name,
                         "avatar": self.sender_avatar
                     },
-                    "tracking_data": "tracking data",
+                    "tracking_data": tracking_data,
                     "type": "file",
                     "media": url,
                     "size": file_size,
                     "file_name": filename
                 }
 
+                if keyboard is not None:
+                    msg_obj['keyboard'] = keyboard
+
                 return msg_obj
 
-    async def picture_message(self, receiver, text, media, thumb):
+    async def picture_message(self, receiver, text, media, thumb, tracking_data, keyboard):
         msg_obj = {
             "receiver": receiver,
             "min_api_version": 1,
@@ -152,16 +158,19 @@ class ViberMessageTypes:
                 "name": self.sender_name,
                 "avatar": self.sender_avatar
             },
-            "tracking_data": "tracking data",
+            "tracking_data": tracking_data,
             "type": "picture",
             "text": text,
             "media": media,
             "thumbnail": thumb
         }
 
+        if keyboard is not None:
+            msg_obj['keyboard'] = keyboard
+
         return msg_obj
 
-    async def video_message(self, receiver, media, size, thumbnail, duration):
+    async def video_message(self, receiver, media, size, thumbnail, duration, tracking_data, keyboard):
         msg_obj = {
             "receiver": receiver,
             "min_api_version": 1,
@@ -169,13 +178,16 @@ class ViberMessageTypes:
                 "name": self.sender_name,
                 "avatar": self.sender_avatar
             },
-            "tracking_data": "tracking data",
+            "tracking_data": tracking_data,
             "type": "video",
             "media": media,
             "thumbnail": thumbnail,
             "size": size,
             "duration": duration
         }
+
+        if keyboard is not None:
+            msg_obj['keyboard'] = keyboard
 
         return msg_obj
 
