@@ -178,3 +178,19 @@ class ViberMessageTypes:
         }
 
         return msg_obj
+
+    async def location_message(self):
+        msg_obj = {
+            "receiver": "01234567890A=",
+            "min_api_version": 1,
+            "sender": {
+                "name": "John McClane",
+                "avatar": "http://avatar.example.com"
+            },
+            "tracking_data": "tracking data",
+            "type": "location",
+            "location": {
+                "lat": "37.7898",
+                "lon": "-122.3942"
+            }
+        }
