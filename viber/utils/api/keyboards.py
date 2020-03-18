@@ -42,8 +42,6 @@ class ViberKeyboards:
     async def foursquare_keyboard(venues):
         buttons = []
         for venue in venues:
-            if venue['name'] == 'Somerset Inn':
-                print(venue)
             buttons.append(
                 {
                     "Columns": 2,
