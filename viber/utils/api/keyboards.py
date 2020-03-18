@@ -46,10 +46,8 @@ class ViberKeyboards:
                 {
                     "Columns": 2,
                     "Rows": 2,
-                    "TextHAlign": "left",
-                    "TextVAlign": "middle",
                     "ActionType": "",
-                    "ActionBody": venue['name'],
+                    "ActionBody": f"{venue['lat']},{venue['lon']},{venue['contact']},{venue['name']}",
                     "BgColor": "#ffffff",
                     "Image": "https://cdn.jim-nielsen.com/watchos/512/foursquare-2015-06-15.png"
                 }
