@@ -8,6 +8,7 @@ class Common:
         self.db = Path("viber/working_dir/db.json")
         self.viber_auth_token = self.app_config.get("viber", "auth_token")
         self.viber_web_hook_url = self.app_config.get("viber", "webhook_uri")
+        self.admin = self.app_config.get("viber", "admin")
         self.viber_name = self.app_config.get("viber", "name")
         self.viber_avatar = self.app_config.get("viber", "avatar")
         self.unsplash_key = self.app_config.get("unsplash", "client_secret")

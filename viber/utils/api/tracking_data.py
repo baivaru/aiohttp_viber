@@ -1,3 +1,4 @@
+from datetime import datetime
 from viber.utils.common import ViberCommon
 from viber.utils.api.commands import ViberCommands
 from viber.utils.api.msg_types import ViberMessageTypes
@@ -117,6 +118,27 @@ class ViberTrackingDataAttendant:
                                                                 receiver=receiver,
                                                                 chat_id=None)
                 await ViberApiRequestSender().post('send_message', payload)
+        elif tracking_data == 'admin_keyboard':
+            """
+            get the user online status
+            """
+            user_online_status_payload = {'auth_token': ViberCommon.viber_auth_token, "ids": [message]}
+            user_online_status = await ViberApiRequestSender().post('get_online', user_online_status_payload)
+            online_status = user_online_status['users'][0]['online_status_message']
+            last_seen = datetime.fromtimestamp((int(user_online_status['users'][0]['last_online'])/1000)).strftime('%Y-%m-%d %H:%M:%S') if 'last_online' in user_online_status['users'][0] else 'Do not know'
+
+            message = await ViberMessageTypes().text_message(receiver,
+                                                             f"User Details: \nOnline Status: {online_status}\n"
+                                                             f"Last Seen: {last_seen}",
+                                                             None, None)
+            payload = await ViberCommands().prepare_payload(message=message,
+                                                            sender_name=self.sender_name,
+                                                            sender_avatar=self.sender_avatar,
+                                                            sender=None,
+                                                            receiver=receiver,
+                                                            chat_id=None)
+            await ViberApiRequestSender().post('send_message', payload)
+
         else:
             message = await ViberMessageTypes().sticker_message(receiver, 32917, None, None)
             payload = await ViberCommands().prepare_payload(message=message,

@@ -25,6 +25,7 @@ class ViberApiRequestSender:
         async with aiohttp.ClientSession() as session:
             async with session.post(url=endpoint, json=payload, headers=headers) as resp:
                 logging.info(await resp.text())
+                return await resp.json()
 
     async def validate_signature(self, received_signature, data):
         calculated_signature = hmac.new(

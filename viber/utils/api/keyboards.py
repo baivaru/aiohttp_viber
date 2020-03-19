@@ -73,3 +73,29 @@ class ViberKeyboards:
         }
 
         return keyboard_obj
+
+    @staticmethod
+    async def admin_keyboard(users):
+        buttons = []
+        for user in users:
+            buttons.append(
+                {
+                    "Columns": 3,
+                    "Rows": 2,
+                    "Text": f"<font color=\"#494E67\">{user['name']}</font><br><br>",
+                    "TextSize": "medium",
+                    "TextHAlign": "center",
+                    "TextVAlign": "bottom",
+                    "ActionType": "reply",
+                    "ActionBody": f"{user['user_id']}",
+                    "BgColor": "#f7bb3f",
+                    "Image": "https://vignette.wikia.nocookie.net/the-ashtron-gaming/images/6/6d/No_image.png"
+                }
+            )
+
+        keyboard_obj = {
+            "Type": "keyboard",
+            "Buttons": buttons
+        }
+
+        return keyboard_obj

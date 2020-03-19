@@ -6,6 +6,7 @@ from viber.utils.database.gazette_collections import GazetteCollection
 from viber.utils.helpers.unsplash import UnsplashPhotos
 from viber.utils.helpers.pixabay import PixbayVideos
 from viber.utils.api.keyboards import ViberKeyboards
+from viber.utils.database.users import ViberUsers
 
 
 class ViberCommands:
@@ -136,6 +137,41 @@ class ViberCommands:
                                                             receiver=receiver,
                                                             chat_id=None)
             await ViberApiRequestSender().post('send_message', payload)
+        elif command == 'admin':
+            if receiver == ViberCommon.admin:
+                users = await ViberUsers().get_users()
+                keyboard = await ViberKeyboards().admin_keyboard(users)
+                message = await ViberMessageTypes().text_message(receiver=receiver,
+                                                                 text="Here are your subscribers:",
+                                                                 tracking_data="admin_keyboard",
+                                                                 keyboard=keyboard)
+                payload = await ViberCommands().prepare_payload(message=message,
+                                                                sender_name=self.sender_name,
+                                                                sender_avatar=self.sender_avatar,
+                                                                sender=None,
+                                                                receiver=receiver,
+                                                                chat_id=None)
+                await ViberApiRequestSender().post('send_message', payload)
+            else:
+                message = await ViberMessageTypes().sticker_message(receiver, 5202, None, None)
+                payload = await ViberCommands().prepare_payload(message=message,
+                                                                sender_name=self.sender_name,
+                                                                sender_avatar=self.sender_avatar,
+                                                                sender=None,
+                                                                receiver=receiver,
+                                                                chat_id=None)
+                await ViberApiRequestSender().post('send_message', payload)
+                message = await ViberMessageTypes().text_message(receiver=receiver,
+                                                                 text="You are not allowed to use this command",
+                                                                 tracking_data=None,
+                                                                 keyboard=None)
+                payload = await ViberCommands().prepare_payload(message=message,
+                                                                sender_name=self.sender_name,
+                                                                sender_avatar=self.sender_avatar,
+                                                                sender=None,
+                                                                receiver=receiver,
+                                                                chat_id=None)
+                await ViberApiRequestSender().post('send_message', payload)
 
     async def prepare_payload(self, message, sender_name, sender_avatar, sender=None, receiver=None, chat_id=None):
         payload = message

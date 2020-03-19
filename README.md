@@ -70,7 +70,6 @@ the signature of the JSON that has been received.
 This function looks for the following events:
     - Subscribed: Before an account can send messages to a user, the user will need to subscribe to the account. 
     - Unsubscribed: The user will have the option to unsubscribe from the PA. This will trigger an unsubscribed callback.
-    - Conversation started: Conversation started event is received when a user opens a conversation with the bot using the “message” button (found on the account’s info screen).
     - message: This event is received when the bot account receives any form of [message](https://developers.viber.com/docs/api/rest-bot-api/#message-types).
     
 3. If the event is "subscribed", it calls the function [on_subscription](https://github.com/eyaadh/aiohttp_viber/blob/6e92781c7e4ca001cb2a6aa0e23c91b1e531e528/viber/utils/api/hadlers.py#L29) to send a simple welcome message. 
